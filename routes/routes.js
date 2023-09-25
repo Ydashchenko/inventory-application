@@ -1,12 +1,16 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/items', (req, res) => {
-    res.send('All Items')
+router.get('/', (req, res) => {
+    res.render('index', { title: 'Home Page' })
 })
 
-router.get('/categories', (req, res) => {
-    res.send('All categories')
+router.get('/item/create', (req, res) => {
+    res.render('create_item', { title: "Create Item" })
+})
+
+router.get('/category/create', (req, res) => {
+    res.render('create_category', { title: "Create Category" })
 })
 
 module.exports = router

@@ -1,0 +1,48 @@
+<%- include('layout/header') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 mx-auto mt-4">
+            <div class="card shadow">
+                <div class="card-header bg-primary">
+                    <h3 class="text-light">Add New Item</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form action="/item/create" method="POST" id="add-item-form" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="item-name">Name</label>
+                            <input type="text" name="item-name" class="form-control form-control-lg" placeholder="Enter item name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="item-description">Description</label>
+                            <input type="text" name="item-description" class="form-control form-control-lg" placeholder="Describe item" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="category">Category</label>
+                            <select name="category" required class="form-control form-control-lg">
+                                
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price">Price</label>
+                            <input type="number" name="price" class="form-control form-control-lg" placeholder="Enter price" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="amount">Amount</label>
+                            <input type="number" name="amount" class="form-control form-control-lg" placeholder="Enter amount" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Select Image</label>
+                            <input type="file" name="image" class="form-control form-control-lg" placeholder="Enter item's name" required>
+                        </div>
+                        <div class="mb-3 d-grid">
+                            <input type="submit" name="submit-item" value="Add User" class="btn btn-primary btn-lg" required>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('layout/footer') %>
