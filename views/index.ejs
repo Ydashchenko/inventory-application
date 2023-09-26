@@ -22,11 +22,11 @@
                         <tbody>
                             <% categories.forEach((row, index) => { %>
                                 <tr class="align-middle">
-                                    <td><%= row.name %></td>
+                                    <td><a href="/category/<%= row._id %>"><%= row.name %></a></td>
                                     <td><%= row.description %></td>
                                     <td>
-                                        <a href="/category<%= row._id %>/edit" class="text-success"><i class="fas fa-edit fa-lg mx-1"></i></a>
-                                        <a href="/category<%= row._id %>/delete" class="text-danger"><i class="fas fa-trash fa-lg mx-1"></i></a>
+                                        <a href="/category/<%= row._id %>/edit" class="text-success"><i class="fas fa-edit fa-lg mx-1"></i></a>
+                                        <a href="/category/<%= row._id %>/delete" class="text-danger"><i class="fas fa-trash fa-lg mx-1"></i></a>
                                     </td>
                                 </tr>
                             <% }) %>
@@ -35,6 +35,7 @@
                 <% } else { %>
                     <h1 class="text-center text-secondary mt-5">No Categories yet.</h1>
                 <% } %>
+                
             </div>
         </div>
     </div>
