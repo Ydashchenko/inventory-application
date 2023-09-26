@@ -23,7 +23,7 @@
                             <% items.forEach((item, index) => { %>
                                 <tr class="align-middle">
                                     <td><%= index %></td>
-                                    <td><img src="<%= item.image %>" width="50px" class="img-thumbnail"></td>
+                                    <td><img src="/uploads/<%= item.image %>" width="50px" class="img-thumbnail"></td>
                                     <td><%= item.name %></td>
                                     <td><%= item.description %></td>
                                     <td><%= item.price %>$</td>
