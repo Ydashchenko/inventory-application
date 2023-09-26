@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 })
 
 // to display images
-app.use(express.static('uploads'))
+app.use(express.static("uploads"))
 
 app.set('view engine', 'ejs')
 

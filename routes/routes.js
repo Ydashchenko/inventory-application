@@ -10,13 +10,13 @@ var storage = multer.diskStorage({
         cb(null, "./uploads")
     },
     filename: function (req, file, cb) {
-        cb(null, file.fieldname + "_" + Date.now() + "_" +file.originalname)
+        cb(null, file.fieldname + "_" + Date.now() + "_" + file.originalname)
     }
 })
 
 var upload = multer({
     storage: storage,
-}).single('image')
+}).single('image');
 
 // Insert item into db
 router.post('/item/create', upload, async (req, res) => {
