@@ -10,33 +10,31 @@
                 </div>
             <% } %>
             <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr class="table-dark text-center">
-                            <th>ID</th>
-                            <th>Image</th>
-                            <th>Item Name</th>
-                            <th>Item Description</th>
-                            <th>Price</th>
-                            <th>Amount</th>
-                            <th>Category</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <td>1</td>
-                        <td><img src="" alt=""></td>
-                        <td>Sasuke Shirt</td>
-                        <td>Cool Sasuke Shirt</td>
-                        <td>69$</td>
-                        <td>100</td>
-                        <td>Shirts</td>
-                        <td>
-                            <a href="" class="text-success"><i class="fas fa-edit fa-lg mx-1"></i></a>
-                            <a href="" class="text-danger"><i class="fas fa-trash fa-lg mx-1"></i></a>
-                        </td>
-                    </tbody>
-                </table>
+                <% if (categories != '') { %>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="table-dark text-center">
+                                <th>Category Name</th>
+                                <th>Category Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% categories.forEach((row, index) => { %>
+                                <tr>
+                                    <td><%= row.name %></td>
+                                    <td><%= row.description %></td>
+                                    <td>
+                                        <a href="" class="text-success"><i class="fas fa-edit fa-lg mx-1"></i></a>
+                                        <a href="" class="text-danger"><i class="fas fa-trash fa-lg mx-1"></i></a>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <h1 class="text-center text-secondary mt-5">No Categories yet.</h1>
+                <% } %>
             </div>
         </div>
     </div>

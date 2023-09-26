@@ -58,9 +58,19 @@ router.post('/category/create', upload, async (req, res) => {
     }
 })
 
-router.get('/', (req, res) => {
-    res.render('index', { title: 'Home Page' })
-})
+// Get all Categories
+router.get('/', async (req, res) => {
+    try {
+        const categories = await Category.find().exec();
+        res.render('index', {
+            title: 'Home Page',
+            categories: categories
+        });
+    } catch (err) {
+        res.json({ message: err.message });
+    }
+});
+
 
 router.get('/item/create', (req, res) => {
     res.render('create_item', { title: "Create Item" })
