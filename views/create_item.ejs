@@ -20,7 +20,9 @@
                         <div class="mb-3">
                             <label for="category">Category</label>
                             <select name="category" required class="form-control form-control-lg">
-                                
+                                <% categories.forEach((category) => { %>
+                                    <option><%= category.name %></option>
+                                <% }) %>
                             </select>
                         </div>
                         <div class="mb-3">

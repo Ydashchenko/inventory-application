@@ -72,8 +72,16 @@ router.get('/', async (req, res) => {
 });
 
 
-router.get('/item/create', (req, res) => {
-    res.render('create_item', { title: "Create Item" })
+router.get('/item/create', async (req, res) => {
+    try {
+        const categories = await Category.find().exec()
+        res.render('create_item', {
+            title: "Create Item",
+            categories: categories
+        })
+    } catch (err) {
+        res.json({ message: err.message })
+    }
 })
 
 router.get('/category/create', (req, res) => {

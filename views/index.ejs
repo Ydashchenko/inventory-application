@@ -21,12 +21,12 @@
                         </thead>
                         <tbody>
                             <% categories.forEach((row, index) => { %>
-                                <tr>
+                                <tr class="align-middle">
                                     <td><%= row.name %></td>
                                     <td><%= row.description %></td>
                                     <td>
-                                        <a href="" class="text-success"><i class="fas fa-edit fa-lg mx-1"></i></a>
-                                        <a href="" class="text-danger"><i class="fas fa-trash fa-lg mx-1"></i></a>
+                                        <a href="/category<%= row._id %>/edit" class="text-success"><i class="fas fa-edit fa-lg mx-1"></i></a>
+                                        <a href="/category<%= row._id %>/delete" class="text-danger"><i class="fas fa-trash fa-lg mx-1"></i></a>
                                     </td>
                                 </tr>
                             <% }) %>
