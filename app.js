@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const session = require('express-session')
+const path = require('path'); 
 
 const app = express()
 const PORT = process.env.PORT || 8000
@@ -35,7 +36,7 @@ app.use((req, res, next) => {
 })
 
 // Serve static files from the "uploads" directory
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.set('view engine', 'ejs')
 

@@ -27,13 +27,17 @@ router.post('/item/create', upload, async (req, res) => {
             return res.json({ message: 'Category not found', type: 'danger' });
         }
 
+        // Replace spaces with underscores in the filename
+        const sanitizedFilename = req.file.filename.replace(/ /g, '_');
+
+        // Create a new Item with the sanitized filename
         const item = new Item({
             name: req.body.itemName,
             description: req.body.itemDescription,
             category: category._id, // Store the ObjectId of the category
             price: req.body.price,
             amount: req.body.amount,
-            image: req.file.filename,
+            image: sanitizedFilename, // Use the sanitized filename
         });
 
         await item.save();
@@ -95,7 +99,7 @@ router.get('/category/create', (req, res) => {
     res.render('create_category', { title: "Create Category" })
 })
 
-// Get items within a specific category
+// Get category items
 router.get('/category/:categoryId', async (req, res) => {
     try {
         const categoryId = req.params.categoryId;
@@ -107,10 +111,35 @@ router.get('/category/:categoryId', async (req, res) => {
         }
 
         const itemsInCategory = await Item.find({ category: categoryId }).exec();
+
+        // Pass the items directly to the template without modifying the image paths
         res.render('category_items', {
             title: `Items in ${category.name}`,
             category: category,
-            items: itemsInCategory
+            items: itemsInCategory // Use itemsInCategory in the template
+        });
+    } catch (err) {
+        res.json({ message: err.message });
+    }
+});
+
+
+// Edit item
+router.get('/item/:itemID/edit/', async (req, res) => {
+    try {
+        const itemID = req.params.itemID;
+        const item = await Item.findById(itemID).exec();
+
+        if (!item) {
+            return res.redirect('/');
+        }
+
+        const categories = await Category.find().exec();
+
+        res.render('edit_items', { 
+            title: "Edit Item",
+            item: item,
+            categories: categories
         });
     } catch (err) {
         res.json({ message: err.message });
