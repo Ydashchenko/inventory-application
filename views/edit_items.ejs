@@ -21,9 +21,9 @@
                             <label for="category">Category</label>
                             <select name="category" required class="form-control form-control-lg">
                                 <% categories.forEach((category) => { %>
-                                    <option><%= category.name %></option>
+                                    <option value="<%= category._id %>" <%= item.category.toString() === category._id.toString() ? 'selected' : '' %>><%= category.name %></option>
                                 <% }) %>
-                            </select>
+                            </select>                            
                         </div>
                         <div class="mb-3">
                             <label for="price">Price</label>
@@ -35,7 +35,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="image" class="form-label">Select Image</label>
-                            <input type="file" name="image" class="form-control form-control-lg" required>
+                            <input type="file" name="image" class="form-control form-control-lg">
                             <img src="/uploads/<%= item.image %>" width="100" class="img-thumbnail mt-1">
                         </div>
                         <input type="hidden" name="old_image" value="<%= item.image %>">

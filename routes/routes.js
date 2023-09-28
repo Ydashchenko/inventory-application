@@ -3,6 +3,9 @@ const router = express.Router()
 const Item = require('../models/items')
 const Category = require('../models/category')
 const multer = require('multer')
+const fs = require('fs')
+const mongoose = require('mongoose');
+
 
 // image upload
 var storage = multer.diskStorage({
@@ -83,6 +86,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Create item
 router.get('/item/create', async (req, res) => {
     try {
         const categories = await Category.find().exec()
@@ -143,6 +147,57 @@ router.get('/item/:itemID/edit/', async (req, res) => {
         });
     } catch (err) {
         res.json({ message: err.message });
+    }
+});
+
+// Update item
+router.post('/item/:itemID/update', upload, async (req, res) => {
+    try {
+        const itemID = req.params.itemID;
+        let new_image = '';
+
+        if (req.file) {
+            new_image = req.file.filename;
+            try {
+                fs.unlinkSync('./uploads/' + req.body.old_image);
+            } catch (err) {
+                console.log(err);
+            }
+        } else {
+            new_image = req.body.old_image;
+        }
+
+        const item = await Item.findById(itemID).exec();
+
+        if (!item) {
+            return res.json({ message: 'Item not found', type: 'danger' });
+        }
+
+        item.name = req.body.itemName;
+        item.description = req.body.itemDescription;
+
+        // Find the category by name
+        const category = await Category.findOne({ _id: req.body.category }).exec();
+        console.log(req.body.category)
+
+        if (!category) {
+            return res.json({ message: 'Category not found', type: 'danger' });
+        }
+
+        item.category = category._id; // Assign the category ID
+        item.price = req.body.price;
+        item.amount = req.body.amount;
+        item.image = new_image;
+
+        const updatedItem = await item.save();
+
+        req.session.message = {
+            type: 'success',
+            message: 'Item updated successfully!',
+        };
+        res.redirect('/');
+    } catch (err) {
+        res.json({ message: err.message, type: 'danger' });
     }
 });
 
