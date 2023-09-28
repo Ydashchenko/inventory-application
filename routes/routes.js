@@ -128,7 +128,7 @@ router.get('/category/:categoryId', async (req, res) => {
 });
 
 
-// Edit item
+// Edit item route
 router.get('/item/:itemID/edit/', async (req, res) => {
     try {
         const itemID = req.params.itemID;
@@ -231,5 +231,71 @@ router.get('/item/:itemID/delete', async (req, res) => {
     }
 });
 
+// Edit category route
+router.get('/category/:categoryID/edit/', async (req, res) => {
+    try {
+        const categoryID = req.params.categoryID;
+        const category = await Category.findById(categoryID).exec();
+
+        if (!category) {
+            return res.redirect('/');
+        }
+
+        res.render('edit_category', { 
+            title: "Edit Item",
+            category: category,
+        });
+    } catch (err) {
+        res.json({ message: err.message });
+    }
+});
+
+// Update category
+router.post('/category/:categoryID/update', upload, async (req, res) => {
+    try {
+        const categoryID = req.params.categoryID;
+
+        const category = await Category.findById(categoryID).exec();
+
+        if (!category) {
+            return res.json({ message: 'Category not found', type: 'danger' });
+        }
+
+        category.name = req.body.categoryName;
+        category.description = req.body.categoryDescription;
+
+        const updatedCategory = await category.save();
+
+        req.session.message = {
+            type: 'success',
+            message: 'Category updated successfully!',
+        };
+        res.redirect('/');
+    } catch (err) {
+        res.json({ message: err.message, type: 'danger' });
+    }
+});
+
+// Delete category
+router.get('/category/:categoryID/delete', async (req, res) => {
+    try {
+        const categoryID = req.params.categoryID;
+        const category = await Category.findById(categoryID).exec();
+
+        if (!category) {
+            return res.json({ message: 'Category not found' });
+        }
+
+        await Category.deleteOne({ _id: categoryID }); // Delete the item
+
+        req.session.message = {
+            type: 'info',
+            message: 'Category deleted successfully!',
+        };
+        res.redirect('/');
+    } catch (err) {
+        res.json({ message: err.message });
+    }
+});
 
 module.exports = router

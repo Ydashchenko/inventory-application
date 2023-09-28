@@ -1,0 +1,30 @@
+<%- include('layout/header') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 mx-auto mt-4">
+            <div class="card shadow">
+                <div class="card-header bg-success">
+                    <h3 class="text-light">Edit <%= category.name %></h3>
+                </div>
+                <div class="card-body p-4">
+                    <form action="/category/<%= category._id %>/update" method="POST" id="edit-category-form" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="categoryName">Name</label>
+                            <input type="text" name="categoryName" class="form-control form-control-lg" placeholder="Enter category name" value="<%= category.name %>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="categoryDescription">Description</label>
+                            <input type="text" name="categoryDescription" class="form-control form-control-lg" placeholder="Describe category" value="<%= category.description %>" required>
+                        </div>
+                        <div class="mb-3 d-grid">
+                            <input type="submit" name="submit-category" value="Update Category" class="btn btn-success btn-lg" required>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('layout/footer') %>
