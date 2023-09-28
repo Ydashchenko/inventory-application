@@ -201,4 +201,35 @@ router.post('/item/:itemID/update', upload, async (req, res) => {
     }
 });
 
+// Delete item
+router.get('/item/:itemID/delete', async (req, res) => {
+    try {
+        const itemID = req.params.itemID;
+        const item = await Item.findById(itemID).exec();
+
+        if (!item) {
+            return res.json({ message: 'Item not found' });
+        }
+
+        if (item.image !== '') {
+            try {
+                fs.unlinkSync('./uploads/' + item.image);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        await Item.deleteOne({ _id: itemID }); // Delete the item
+
+        req.session.message = {
+            type: 'info',
+            message: 'Item deleted successfully!',
+        };
+        res.redirect('/');
+    } catch (err) {
+        res.json({ message: err.message });
+    }
+});
+
+
 module.exports = router
