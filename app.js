@@ -13,7 +13,6 @@ mongoose.connect(process.env.DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true, 
     dbName: "inventory_application",
-    connectTimeoutMS: 60000, 
 })
 
 const db = mongoose.connection
