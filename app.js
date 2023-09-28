@@ -12,7 +12,8 @@ const PORT = process.env.PORT || 8000
 mongoose.connect(process.env.DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true, 
-    dbName: "inventory_application"
+    dbName: "inventory_application",
+    connectTimeoutMS: 60000, 
 })
 
 const db = mongoose.connection
