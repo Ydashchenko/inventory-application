@@ -78,7 +78,7 @@ router.get('/', async (req, res) => {
     try {
         const categories = await Category.find().exec();
         res.render('index', {
-            title: 'Home Page',
+            title: 'Anime Page',
             categories: categories
         });
     } catch (err) {
